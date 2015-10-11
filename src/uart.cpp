@@ -1,6 +1,6 @@
 #include "uart.hh"
 
-UART::UART() : _port(9) {
+UART::UART(unsigned short port_) : _port(port_) {
 }
 
 void UART::send(const char* message_) {

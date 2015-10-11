@@ -1,11 +1,10 @@
-SRCDIR	=src
-OUTDIR	=build
+SRCDIR	=../src
 BINDIR	=bin
 SRC	=$(SRCDIR)/main.cpp \
 	 $(SRCDIR)/vga.cpp \
 	 $(SRCDIR)/uart.cpp
 ASM	=$(SRCDIR)/crt0.S
-NAME	=mkernel
+NAME	=$(BINDIR)/mkernel
 CXXFLAGS= -Wall -Wextra -W -nostdinc -fno-builtin -m32 -fno-stack-protector
 ASFLAGS	= --32 -mtune=i386 
 LDFLAGS	= -script ./kfs.ld -nostdlib -melf_i386 --build-id=none
@@ -19,12 +18,12 @@ LINK	= ld
 all: $(NAME)
 
 %.o : %.S
-	$(AS) $(ASFLAGS) -o $(OUTDIR)/$@ -c $<
+	$(AS) $(ASFLAGS) -o $@ -c $<
 
 %.o : %.cpp
-	$(CXX) $(CXXFLAGS) -o $(OUTDIR)/$@ -c $<
+	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
 $(NAME): $(OBJS)
-	cd $(OUTDIR) && $(LINK) $(OBJS) $(LDFLAGS) -o bin/$(NAME)
+	$(LINK) $(OBJS) $(LDFLAGS) -o $(NAME)
 
 .PHONY: all clean fclean re

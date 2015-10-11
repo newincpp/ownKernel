@@ -36,7 +36,7 @@ class VGA {
 	}
 	void resetBg();
 	void autoScroll();
-	void printk(const char*);
+	void print(const char*);
 	Cursor& getCursor();
 	void clear(ubyte);
 	inline void clear() {

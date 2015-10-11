@@ -1,6 +1,12 @@
 #include "vga.hh"
 
 VGA::Cursor::Cursor() : _x(0), _y(0) {
+    asm volatile("outb %0, %1\n\t"
+	    : /* No output */
+	    : "a" ((unsigned char)0x3D4), "d" ((unsigned short)0x0F));
+    asm volatile("outb %0, %1\n\t"
+	    : /* No output */
+	    : "a" ((unsigned char)0x3D4), "d" ((unsigned short)0x0E));
 }
 
 VGA::Cursor::Cursor(Cursor& o_) : _x(o_._x), _y(o_._y) {
@@ -84,15 +90,8 @@ VGA::Cursor& VGA::getCursor() {
     return _cursor;
 }
 
-void VGA::printk(const char* message_) {
+void VGA::print(const char* message_) {
     put(message_, COLOR_WHITE);
-}
-
-extern "C" {
-void printk(const char* message_) {
-    VGA v;
-    v.put(message_, COLOR_WHITE);
-}
 }
 
 VGA::VGA() : _video_mem((char*)0xb8000), _backgroudColor(COLOR_BLACK) {
@@ -100,3 +99,4 @@ VGA::VGA() : _video_mem((char*)0xb8000), _backgroudColor(COLOR_BLACK) {
 	_video_mem[i] = 0;
     }
 }
+
