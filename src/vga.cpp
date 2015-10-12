@@ -28,6 +28,10 @@ unsigned int VGA::Cursor::index() const {
     return (_y * SIZE_COL) + _x;
 }
 
+void VGA::operator<<(const char* msg) {
+    print(msg);
+}
+
 ubyte VGA::_genColor(ubyte fg_, ubyte bg_) const {
     return fg_ | bg_ << 4;
 }

@@ -17,8 +17,10 @@ void kmain(unsigned int magic, struct multiboot_info* info) {
     VGA display;
     display.setBg(COLOR_RED);
     display.resetBg();
-    display.print("welcome on bruOS\n");
-
-    printk("lol\n");
-    printk("yay\n");
+    display << "welcome on bruOS\n";
+    display << "lol\n";
+    display << "yay\n";
+    display.setBg(COLOR_BLACK);
+    display << "lol\n";
+    display.resetBg();
 }

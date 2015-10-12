@@ -30,6 +30,7 @@ class VGA {
 	ubyte _genColor(ubyte, ubyte)const;
     public:
 	VGA();
+	void operator<<(const char*);
 	void put(const char*, ubyte);
 	void setBg(ubyte newBg_) {
 	    _backgroudColor = newBg_;
